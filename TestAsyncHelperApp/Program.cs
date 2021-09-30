@@ -9,24 +9,24 @@ using TestWebApp;
 
 namespace TestAsyncHelperApp
 {
-	class Program
-	{
-		static void Main(string[] args)
+    class Program
+    {
+        static void Main(string[] args)
         {
             //ThreadPool.SetMaxThreads(1000,1000);
 
             var hostBuilder = new WebHostBuilder()
-			.UseKestrel()
-			.UseStartup<Startup>()
-			.Build();
+            .UseKestrel()
+            .UseStartup<Startup>()
+            .Build();
 
-			hostBuilder.RunAsync();
+            hostBuilder.RunAsync();
 
-			HttpClientHandler clientHandler = new HttpClientHandler();
-			clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-			HttpClient client = new HttpClient(clientHandler);
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            HttpClient client = new HttpClient(clientHandler);
 
-			MediaTypeHeaderValue mediaTypeHeaderValue = new MediaTypeHeaderValue("application/json");
+            MediaTypeHeaderValue mediaTypeHeaderValue = new MediaTypeHeaderValue("application/json");
             var tasks = new List<Task>();
             for (int i = 0; i < 700; i++)
             {
@@ -42,5 +42,5 @@ namespace TestAsyncHelperApp
             }
             Task.WhenAll(tasks).Wait();
         }
-	}
+    }
 }

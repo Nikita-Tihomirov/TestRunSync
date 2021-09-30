@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace TestWebApp.Controllers
 {
-	public class ValuesController : ApiController
+    public class ValuesController : ApiController
     {
         public string Post([FromBody]string value)
         {
